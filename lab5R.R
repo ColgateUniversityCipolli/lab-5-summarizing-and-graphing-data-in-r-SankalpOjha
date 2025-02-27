@@ -56,29 +56,32 @@ for(col in 1:length(cols.numeric.names)){
   list.descriptions <- cbind(list.descriptions, data[[8]])
 }
 
-view(list.descriptions)
 
+names <- tibble(artists = c("All Get Out", 
+                            "Manchster Orchestra", 
+                            "The Front Bottoms"))
+
+all.data <- bind_cols(names, list.descriptions)
+
+
+view(all.data)
 
 
 
 #Counting code
-as <- 0
-ms <- 0
-ts <- 0
+as.count <- 0
+ms.count <- 0
+ts.count <- 0
 
-for(i in 1:length(list.descriptions)){
-  if(list.descriptions[i] == "Within Range" & (i%%3 == 2)){
-    as = as + 1
-  }else if(list.descriptions[i] == "Within Range" & (i%%3 == 1)){
-    ms = ms + 1
-  }else if(list.descriptions[i] == "Within Range" & (i%%3 == 0)){
-    ts = ts + 1
-  }else if(list.descriptions[i] == "Outlying" & (i%%3 == 2)){
-    as = as + 0.5
-  }else if(list.descriptions[i] == "Outlying" & (i%%3 == 1)){
-    ms = ms + 0.5
-  }else if(list.descriptions[i] == "Outlying" & (i%%3 == 0)){
-    ts = ts + 0.5
+for(i in 1:3){
+  for(y in length(all.data)){
+    if(all.data[i] == "Within Range" & (i%%3 == 2)){
+      as = as + 1
+    }else if(all.data[i] == "Within Range" & (i%%3 == 1)){
+      ms = ms + 1
+    }else if(all.data[i] == "Within Range" & (i%%3 == 0)){
+      ts = ts + 1
+    }
   }
 }
 
