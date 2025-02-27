@@ -67,8 +67,6 @@ all.data <- bind_cols(names, list.descriptions)
 view(all.data)
 
 
-
-#Counting code
 as.count <- 0
 ms.count <- 0
 ts.count <- 0
@@ -84,6 +82,12 @@ for(i in 1:3){
     }
   }
 }
+
+
+view(summary.data)
+
+#Counting code
+
 
 
 
