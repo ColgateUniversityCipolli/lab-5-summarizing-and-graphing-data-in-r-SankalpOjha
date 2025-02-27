@@ -67,22 +67,17 @@ all.data <- bind_cols(names, list.descriptions)
 view(all.data)
 
 
-as.count <- 0
-ms.count <- 0
-ts.count <- 0
+class(all.data) = "data.frame"
+count.in.range = rowSums(all.data == "Within Range")
+count.outlying = rowSums(all.data == "Outlying")
+count.out.range = rowSums(all.data == "Out Of Range")
 
-for(i in 1:3){
-  for(y in length(all.data)){
-    if(all.data[i] == "Within Range" & (i%%3 == 2)){
-      as = as + 1
-    }else if(all.data[i] == "Within Range" & (i%%3 == 1)){
-      ms = ms + 1
-    }else if(all.data[i] == "Within Range" & (i%%3 == 0)){
-      ts = ts + 1
-    }
-  }
-}
 
+summary.data <- all.data %>%
+  mutate(count.in.range = count.in.range,
+         count.outlying = count.outlying,
+         count.out.range = count.out.range) |>
+  mutate(points = count.in.range + 0.5 * (count.outlying))
 
 view(summary.data)
 
