@@ -99,7 +99,6 @@ As can be seen in the Relaxed V. Artist plot, Manchester Orchestra is more leftw
   2 & Manchster Orchestra & 185.00 & 11.00 & 1.00 & 190.50 \\ 
   3 & The Front Bottoms & 159.00 & 11.00 & 27.00 & 164.50 \\ 
    \hline
-\label{plot5}
 \end{tabular}
 \end{table}
 
