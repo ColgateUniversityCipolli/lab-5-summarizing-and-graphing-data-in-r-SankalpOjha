@@ -1,6 +1,8 @@
 library("tidyverse")
 library("jsonlite")
 library("stringr")
+library(ggplot2)
+library("xtable")
 
 #get Allentown data
 allen.data <- read_csv("data/essentia.data.allentown.csv")
@@ -81,13 +83,60 @@ summary.data <- all.data %>%
 
 view(summary.data)
 
-#Counting code
+#Column plot for feature in range
+plot1 <- ggplot(aes(x = artists,
+                 y = count.in.range),
+             data = summary.data) +
+  geom_col(width = .75) +
+  geom_hline(yintercept = 0, color = "black") +
+  geom_bar(stat="identity",fill="lightblue")+ 
+  theme_bw() +
+  labs(x = "Artists",
+       y = "Number Of Within Range Categories",
+       title = "Artists Within Range Of Categories")
 
+#Column plot for features that are outlying
+plot2 <- ggplot(aes(x = artists,
+                 y = count.outlying),
+             data = summary.data) +
+  geom_col(width = .75) +
+  geom_hline(yintercept = 0, color = "black") +
+  geom_bar(stat="identity",fill="lightblue")+ 
+  theme_bw() +
+  labs(x = "Artists",
+       y = "Number Of Outlying Categories",
+       title = "Artists Outlying Of Categories")
 
+#Column plot for feature out of range
+plot3 <- ggplot(aes(x = artists,
+           y = count.out.range),
+       data = summary.data) +
+  geom_col(width = .75) +
+  geom_hline(yintercept = 0, color = "black") +
+  geom_bar(stat="identity",fill="lightblue")+ 
+  theme_bw()  +
+  labs(x = "Artists",
+       y = "Number Of Out Of Range Categories",
+       title = "Artists Out Of Range Of Categories")
 
+plot4 <- ggplot(aes(x = artists,
+                    y = points),
+                data = summary.data) +
+  geom_col(width = .75) +
+  geom_hline(yintercept = 0, color = "black") +
+  geom_bar(stat="identity",fill="lightblue")+ 
+  theme_bw()  +
+  labs(x = "Artists",
+       y = "Points",
+       title = "Total Points Accumalated")
 
-#min(...) provides the minimum for a vector
-#quantile(...) provides the specified percentile for a vector
-#median(...) provides the median for a vector
-#max(...) provides the max for a vector
-#IQR(...) provides the interquartile rang for a vector
+plot1 + plot2 + plot3 + plot4
+
+table.info <- summary.data |>
+  select("artists",
+         "count.in.range",
+         "count.outlying",
+         "count.out.range",
+         "points")
+
+table = xtable(table.info)
